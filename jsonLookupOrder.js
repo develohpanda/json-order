@@ -1,20 +1,26 @@
 const desiredOrder = {
   "nested1": {
+    "zebra": [
+      5, 6, 7, { "fruit": "banana" }
+    ],
     "nested2": {
       "b": 10,
       "a": true
     }
   },
-  "foo": [1, 2, 3, "test", { "first": "hi", "second": "there" }]
+  "foo": [1, 2, 3, { "d": "second", "c": "first" }, "test"]
 };
 
-const unordered = {
-  "foo": [1, 2, 3, "test", { "second": "there", "first": "hi" }],
+const defaultOrder = {
+  "foo": [1, 2, 3, { "c": "first", "d": "second" }, "test"],
   "nested1": {
     "nested2": {
       "a": true,
       "b": 10
-    }
+    },
+    "zebra": [
+      5, 6, 7, { "fruit": "banana" }
+    ]
   }
 };
 
@@ -91,9 +97,9 @@ function generateObject(lookup, obj) {
 }
 
 const lookup = generateLookup(desiredOrder);
-const fixedOrder = generateObject(lookup, unordered);
+const fixedOrder = generateObject(lookup, defaultOrder);
 
-console.log(`Random order  : ${JSON.stringify(unordered)}`);
+console.log(`Random order  : ${JSON.stringify(defaultOrder)}`);
 console.log(`Desired order : ${JSON.stringify(desiredOrder)}`);
 console.log(`Fixed order   : ${JSON.stringify(fixedOrder)}`);
 console.log(`Lookup        : ${JSON.stringify(lookup)}`);
