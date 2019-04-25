@@ -48,7 +48,6 @@ function generateLookup(obj) {
 
   traverseObject(obj, lookup, "");
 
-  console.log(JSON.stringify(lookup));
   return lookup;
 }
 
@@ -68,6 +67,10 @@ function setProperty(obj, key, value) {
   }, obj);
 }
 
+function deepClone(val) {
+  return JSON.parse(JSON.stringify(val));
+}
+
 function generateObject(lookup, obj) {
   const lookupKeys = getKeys(lookup);
 
@@ -80,13 +83,17 @@ function generateObject(lookup, obj) {
 
     keys.forEach(key => {
       const value = getProperty(obj, `${parentKey}.${key}`);
-      setProperty(orderedObject, `${parentKey}.${key}`, value);
+      setProperty(orderedObject, `${parentKey}.${key}`, deepClone(value));
     });
   });
 
-  console.log(JSON.stringify(orderedObject));
-  console.log(JSON.stringify(expectedOrder));
+  return orderedObject;
 }
 
 const lookup = generateLookup(expectedOrder);
-const ordered = generateObject(lookup, unordered);
+const fixedOrder = generateObject(lookup, unordered);
+
+console.log(`Expected: ${JSON.stringify(expectedOrder)}`);
+console.log(`Fixed   : ${JSON.stringify(fixedOrder)}`);
+console.log(`Source  : ${JSON.stringify(unordered)}`);
+console.log(`Lookup  : ${JSON.stringify(lookup)}`);
