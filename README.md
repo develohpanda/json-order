@@ -16,25 +16,27 @@ You could choose to store the settings as a JSON string, however depending on th
 
 ## How it works
 
+Start by looking at the functions `generateLookup` and `generateObject`;
+
 Lets say your desired JSON output is:
 
 ```js
 {
-	"nested1": {
-		"zebra": [
-			5, 6, 7, {
-				"fruit": "banana"
-			}
-		],
-		"nested2": {
-			"b": 10,
-			"a": true
-		}
-	},
-	"foo": [1, 2, 3, {
-		"d": "second",
-		"c": "first"
-	}, "test"]
+  "nested1": {
+    "zebra": [
+      5, 6, 7, {
+        "fruit": "banana"
+      }
+    ],
+    "nested2": {
+      "b": 10,
+      "a": true
+    }
+  },
+  "foo": [1, 2, 3, {
+    "d": "second",
+    "c": "first"
+  }, "test"]
 }
 ```
 
@@ -42,21 +44,21 @@ On reading from SQLite, your default ordering will be alphabetical, thus:
 
 ```js
 {
-	"foo": [1, 2, 3, {
-		"c": "first",
-		"d": "second"
-	}, "test"],
-	"nested1": {
-		"nested2": {
-			"a": true,
-			"b": 10
-		},
-		"zebra": [
-			5, 6, 7, {
-				"fruit": "banana"
-			}
-		]
-	}
+  "foo": [1, 2, 3, {
+    "c": "first",
+    "d": "second"
+  }, "test"],
+  "nested1": {
+    "nested2": {
+      "a": true,
+      "b": 10
+    },
+    "zebra": [
+      5, 6, 7, {
+        "fruit": "banana"
+      }
+    ]
+  }
 }
 ```
 
@@ -66,10 +68,10 @@ The generated lookup table looks like:
 
 ```js
 {
-	"$": ["nested1", "foo"],
-	"$.nested1": ["zebra", "nested2"],
-	"$.nested1.zebra.3": ["fruit"],
-	"$.nested1.nested2": ["b", "a"],
-	"$.foo.3": ["d", "c"]
+  "$": ["nested1", "foo"],
+  "$.nested1": ["zebra", "nested2"],
+  "$.nested1.zebra.3": ["fruit"],
+  "$.nested1.nested2": ["b", "a"],
+  "$.foo.3": ["d", "c"]
 }
 ```
