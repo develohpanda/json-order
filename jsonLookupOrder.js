@@ -1,4 +1,4 @@
-const expectedOrder = {
+const desiredOrder = {
   "nested1": {
     "nested2": {
       "b": 10,
@@ -58,17 +58,17 @@ function getProperty(obj, key) {
     .reduce((o, x) => o && o.hasOwnProperty(x) && o[x], obj);
 }
 
+function deepCloneArray(val) {
+  return JSON.parse(JSON.stringify(val));
+}
+
 function setProperty(obj, key, value) {
   key.split(".").filter(s => s.length > 0).reduce((o, x, idx, src) => {
     if (idx === src.length - 1) {
-      o[x] = value;
+      o[x] = Array.isArray(value) ? deepCloneArray(value) : value;
     }
     return o[x];
   }, obj);
-}
-
-function deepClone(val) {
-  return JSON.parse(JSON.stringify(val));
 }
 
 function generateObject(lookup, obj) {
@@ -83,17 +83,17 @@ function generateObject(lookup, obj) {
 
     keys.forEach(key => {
       const value = getProperty(obj, `${parentKey}.${key}`);
-      setProperty(orderedObject, `${parentKey}.${key}`, deepClone(value));
+      setProperty(orderedObject, `${parentKey}.${key}`, value);
     });
   });
 
   return orderedObject;
 }
 
-const lookup = generateLookup(expectedOrder);
+const lookup = generateLookup(desiredOrder);
 const fixedOrder = generateObject(lookup, unordered);
 
-console.log(`Expected: ${JSON.stringify(expectedOrder)}`);
-console.log(`Fixed   : ${JSON.stringify(fixedOrder)}`);
-console.log(`Source  : ${JSON.stringify(unordered)}`);
-console.log(`Lookup  : ${JSON.stringify(lookup)}`);
+console.log(`Random order  : ${JSON.stringify(unordered)}`);
+console.log(`Desired order : ${JSON.stringify(desiredOrder)}`);
+console.log(`Fixed order   : ${JSON.stringify(fixedOrder)}`);
+console.log(`Lookup        : ${JSON.stringify(lookup)}`);
