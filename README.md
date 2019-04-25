@@ -4,19 +4,19 @@ This repository is an experiment in controlling the order of properties in JSON 
 
 ## Why?
 
-JS Objects in JavaScript do keep their property order, however this is not guaranteed by other systems.
+JS Objects in JavaScript do keep their property order, however this is not guaranteed by other systems you may interchange that object with.
 
 For example, when storing a JS Object in a SQLite database, the returned object will be in alphabetical order.
 
-> Note: this behavior is only for object properties. Array item order is still preserved.
+> Note: this behavior is only for object properties. Array item order is still preserved ([ref](https://stackoverflow.com/a/7214312)).
 
-This behavior is undesirable in certain cases. If a user has configured an application via JSON, they may choose to make logical groupings of properties. When this JSON is stored in the DB and extracted again, the groupings are removed.
+This behavior is undesirable in certain cases. If a user has configured an application via JSON, they may choose to make logical groupings of properties. When this JSON is parsed to a JS Object, stored in the DB and extracted again, the groupings no longer exist as the properties have been alphabetically ordered.
 
 You could choose to store the settings as a JSON string, however depending on the use case there may be difficult side-effects with existing integrations, etc.
 
 ## How it works
 
-Start by looking at the functions `generateLookup` and `generateObject`;
+Start by looking at the functions `generateLookup` and `generateObject`.
 
 Lets say your desired JSON output is:
 
