@@ -1,10 +1,10 @@
 # JSON ordering via lookup
 
-This repository is an experiment in controlling the order of properties in JSON via a lookup object. It is in reference to the approach suggested to for feature [1046](https://github.com/getinsomnia/insomnia/issues/1046#issuecomment-486419705) in Insomnia REST.
+This repository is an experiment in controlling the order of properties in JSON via a lookup object. It is in reference to the approach suggested for feature [1046](https://github.com/getinsomnia/insomnia/issues/1046#issuecomment-486419705) in Insomnia REST.
 
 ## Why?
 
-JS Objects in JavaScript do keep their property order, however this is not guaranteed by other systems you may interchange that object with.
+JS Objects in JavaScript do keep their property insertion order (this behaviour is dependant on the JS engine), however this behaviour is not guaranteed by other systems you may interchange that object with.
 
 For example, when storing a JS Object in a SQLite database, the returned object will be in alphabetical order.
 
