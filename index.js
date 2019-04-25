@@ -28,22 +28,22 @@ function getKeys(obj) {
   return Object.keys(obj);
 }
 
-function nestedObj(obj) {
-  return (
-    typeof (obj) === "object" ? obj : undefined);
+function isObject(obj) {
+  return typeof (obj) === "object";
 }
 
 function traverseObject(obj, lookup, parentKey) {
   const childKeys = getKeys(obj);
 
+  // Ignore storing keys for arrays (it is just an array of indexes)
   if (!Array.isArray(obj)) {
     lookup[`$${parentKey}`] = childKeys;
   }
 
   childKeys.forEach((childKey) => {
-    const nested = nestedObj(obj[childKey]);
+    const nested = obj[childKey];
 
-    if (nested) {
+    if (isObject(nested)) {
       traverseObject(nested, lookup, `${parentKey}.${childKey}`);
     }
   });
@@ -58,8 +58,7 @@ function generateLookup(obj) {
 }
 
 function getProperty(obj, key) {
-  return key
-    .split(".")
+  return key.split(".")
     .filter(s => s.length > 0)
     .reduce((o, x) => o && o.hasOwnProperty(x) && o[x], obj);
 }
@@ -69,12 +68,14 @@ function deepCloneArray(val) {
 }
 
 function setProperty(obj, key, value) {
-  key.split(".").filter(s => s.length > 0).reduce((o, x, idx, src) => {
-    if (idx === src.length - 1) {
-      o[x] = Array.isArray(value) ? deepCloneArray(value) : value;
-    }
-    return o[x];
-  }, obj);
+  key.split(".")
+    .filter(s => s.length > 0)
+    .reduce((o, x, idx, src) => {
+      if (idx === src.length - 1) {
+        o[x] = Array.isArray(value) ? deepCloneArray(value) : value;
+      }
+      return o[x];
+    }, obj);
 }
 
 function generateObject(lookup, obj) {
@@ -83,10 +84,13 @@ function generateObject(lookup, obj) {
   const orderedObject = {};
   lookupKeys.forEach((lookupKey) => {
     const keys = lookup[lookupKey];
-    const parentKey = lookupKey.substr(1);
+    const parentKey = lookupKey.substr(1); // Remove starting $
     const parent = getProperty(obj, parentKey);
+
+    // Set a default value for the property
     setProperty(orderedObject, parentKey, Array.isArray(parent) ? parent : {});
 
+    // Fetch value from source and set on output
     keys.forEach(key => {
       const value = getProperty(obj, `${parentKey}.${key}`);
       setProperty(orderedObject, `${parentKey}.${key}`, value);
