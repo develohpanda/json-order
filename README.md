@@ -75,3 +75,10 @@ The generated lookup table looks like:
   "$.foo.3": ["d", "c"]
 }
 ```
+
+```
+Random order  : {"foo":[1,2,3,{"c":"first","d":"second"},"test"],"nested1":{"nested2":{"a":true,"b":10},"zebra":[5,6,7,{"fruit":"banana"}]}}
+Desired order : {"nested1":{"zebra":[5,6,7,{"fruit":"banana"}],"nested2":{"b":10,"a":true}},"foo":[1,2,3,{"d":"second","c":"first"},"test"]}
+Fixed order   : {"nested1":{"zebra":[5,6,7,{"fruit":"banana"}],"nested2":{"b":10,"a":true}},"foo":[1,2,3,{"d":"second","c":"first"},"test"]}
+Lookup        : {"$":["nested1","foo"],"$.nested1":["zebra","nested2"],"$.nested1.zebra.3":["fruit"],"$.nested1.nested2":["b","a"],"$.foo.3":["d","c"]}
+```
