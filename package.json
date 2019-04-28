@@ -1,0 +1,27 @@
+{
+  "name": "json-order",
+  "version": "1.0.0",
+  "description": "Control the order of properties in JSON via a lookup object",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/develohpanda/json-lookup-order.git"
+  },
+  "keywords": [
+    "JSON",
+    "order"
+  ],
+  "author": "Opender Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/develohpanda/json-lookup-order/issues"
+  },
+  "homepage": "https://github.com/develohpanda/json-lookup-order#readme",
+  "devDependencies": {
+    "jest": "^24.7.1",
+    "jshint": "^2.10.2"
+  }
+}
