@@ -23,5 +23,9 @@
   "devDependencies": {
     "jest": "^24.7.1",
     "jshint": "^2.10.2"
+  },
+  "dependencies": {
+    "lodash.clone": "^4.5.0",
+    "lodash.clonedeep": "^4.5.0"
   }
 }
