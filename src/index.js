@@ -28,9 +28,8 @@ const defaultOrderObject = {
 };
 
 const parsed = orderedJSONParse(desiredOrderString);
-const fixedOrder = orderedJSONStringify(defaultOrderObject, parsed.map);
+const fixedOrderString = orderedJSONStringify(defaultOrderObject, parsed.map);
 
 console.log(`Random order  : ${JSON.stringify(defaultOrderObject)}`);
 console.log(`Desired order : ${desiredOrderString.replace(/\s/g, "")}`);
-console.log(`Fixed order   : ${JSON.stringify(fixedOrder)}`);
-console.log(`Lookup        : ${JSON.stringify(parsed.map)}`);
+console.log(`Fixed order   : ${fixedOrderString.replace(/\s/g, "")}`);
