@@ -2,10 +2,13 @@
   "name": "json-order",
   "version": "1.0.0",
   "description": "Control the order of properties in JSON via a lookup object",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "jest",
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "build": "babel lib/ -d dist/",
+    "prepublish": "npm run build",
+    "flow": "flow"
   },
   "repository": {
     "type": "git",
@@ -22,6 +25,9 @@
   },
   "homepage": "https://github.com/develohpanda/json-lookup-order#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-flow": "^6.23.0",
+    "flow-bin": "^0.98.0",
     "jest": "^24.7.1",
     "jshint": "^2.10.2"
   },
