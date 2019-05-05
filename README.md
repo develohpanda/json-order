@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/develohpanda/json-order.svg?style=svg)](https://circleci.com/gh/develohpanda/json-order)
+[![CircleCI](https://circleci.com/gh/develohpanda/json-order.svg?style=svg)](https://circleci.com/gh/develohpanda/json-order) [![GitHub tag](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://GitHub.com/develohpanda/json-order/releases/) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/develohpanda/json-order/blob/master/LICENSE)
 
 # JSON ordering via lookup
 
