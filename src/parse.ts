@@ -15,7 +15,7 @@ const traverseObject = (obj: object, map: PropertyMap, parentKey: string) => {
   childKeys.forEach((childKey) => {
     const value = obj[childKey];
 
-    if (typeof (obj) === 'object') {
+    if (typeof (value) === 'object') {
       traverseObject(value, map, `${parentKey}.${childKey}`);
     }
   });
@@ -25,7 +25,7 @@ const parse = (jsonString: string): OrderedParseResult => {
   const obj: object = JSON.parse(jsonString);
 
   const map = {};
-  traverseObject(obj, map, '');
+  traverseObject(obj, map, '$');
   return {
     result: obj,
     map
