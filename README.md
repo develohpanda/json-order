@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/develohpanda/json-order.svg?style=svg)](https://circleci.com/gh/develohpanda/json-order)
+
 # JSON ordering via lookup
 
 This repository is an experiment in controlling the order of properties in JSON via a lookup object. It is in reference to the approach suggested for feature [1046](https://github.com/getinsomnia/insomnia/issues/1046#issuecomment-486419705) in Insomnia REST.
