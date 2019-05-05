@@ -51,6 +51,30 @@ describe('parse ', () => {
     expectMap(input, map);
   });
 
+  it('handles nesting [object] > [object]', () => {
+    const input = `
+    {
+      "a": {
+        "a2": {
+          "b": "str"
+        },
+        "a1": {
+          "d": 2,
+          "c": false
+        }
+      }
+    }`;
+
+    const map = {
+      '$': ['a'],
+      '$.a': ['a2', 'a1'],
+      '$.a.a2': ['b'],
+      '$.a.a1': ['d', 'c']
+    };
+
+    expectMap(input, map);
+  });
+
   it('should not return mappings for primitive elements of an [array]', () => {
     const input = `
     {
@@ -64,7 +88,6 @@ describe('parse ', () => {
     expectMap(input, map);
   });
 
-  
   it('handles nesting [array] > [array]', () => {
     const input = `
     {
@@ -132,54 +155,6 @@ describe('parse ', () => {
       '$': ['d'],
       '$.d.2.1': ['c', 'b'],
       '$.d.2.1.b.1': ['a']
-    };
-
-    expectMap(input, map);
-  });
-
-  it('returns keys for nested objects with values of type [string, number, boolean]', () => {
-    const input = `
-    {
-      "a": {
-        "a2": {
-          "b": "str"
-        },
-        "a1": {
-          "d": "str",
-          "c": "str"
-        }
-      }
-    }`;
-
-    const map = {
-      '$': ['a'],
-      '$.a': ['a2', 'a1'],
-      '$.a.a2': ['b'],
-      '$.a.a1': ['d', 'c']
-    };
-
-    expectMap(input, map);
-  });
-
-  it('returns keys for nested items', () => {
-    const input = `
-    {
-      "a": {
-        "a2": {
-          "b": "str"
-        },
-        "a1": {
-          "d": true,
-          "c": 2
-        }
-      }
-    }`;
-
-    const map = {
-      '$': ['a'],
-      '$.a': ['a2', 'a1'],
-      '$.a.a2': ['b'],
-      '$.a.a1': ['d', 'c']
     };
 
     expectMap(input, map);
