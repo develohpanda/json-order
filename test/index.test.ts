@@ -1,13 +1,13 @@
-import orderedJSONParse from '../dist/orderedJSONParse';
-import orderedJSONStringify from '../dist/orderedJSONStringify';
 import orderedJSON from '../src/index';
+import parse from '../src/parse';
+import stringify from '../src/stringify';
 
 describe('package export', () => {
     it('parse correctly configured', () => {
-        expect(orderedJSON.parse).toBe(orderedJSONParse);
+        expect(orderedJSON.parse).toBe(parse);
     });
 
     it('stringify correctly configured', () => {
-        expect(orderedJSON.stringify).toBe(orderedJSONStringify);
+        expect(orderedJSON.stringify).toBe(stringify);
     });
 });

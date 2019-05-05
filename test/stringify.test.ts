@@ -1,10 +1,9 @@
-import parse from '../src/parse';
+import stringify from '../src/stringify';
 
 describe('stringify ', () => {
   it('returns nothing for a blank JSON string', () => {
-    const result = parse('{}');
+    const result = stringify({}, {});
 
-    expect(result.result).toEqual({});
-    expect(result.map).toEqual({});
+    expect(result).toEqual('{}');
   });
 });
