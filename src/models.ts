@@ -1,8 +1,8 @@
 export interface PropertyMap {
-    [key: string]: Array<string>
+  [key: string]: Array<string>;
 }
 
 export interface OrderedParseResult {
-    result: Object,
-    map: PropertyMap
+  result: object;
+  map: PropertyMap;
 }

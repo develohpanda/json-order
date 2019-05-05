@@ -14,6 +14,7 @@
   "homepage": "https://github.com/develohpanda/json-lookup-order#readme",
   "scripts": {
     "test": "jest",
+    "test:watch": "jest --watch",
     "test:cover": "jest --coverage",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "lint": "tslint {src,test}/**/*.ts",
@@ -28,10 +29,12 @@
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^20.0.5",
+    "@types/lodash.clonedeep": "^4.5.6",
     "@types/node": "^8.0.19",
     "coveralls": "^2.13.1",
     "dot-json": "^1.0.3",
     "jest": "^20.0.4",
+    "lodash.clonedeep": "^4.5.0",
     "rimraf": "^2.6.2",
     "ts-jest": "^20.0.7",
     "tslint": "^5.5.0",

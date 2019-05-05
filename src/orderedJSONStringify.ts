@@ -1,15 +1,15 @@
 import clonedeep from 'lodash.clonedeep';
-import { PropertyMap, OrderedParseResult } from "./models";
+import { PropertyMap } from './models';
 
-const getProperty = (obj: Object, key: string) => {
-  return key.split('.').filter(s => s.length > 0)
-    .reduce((o: Object, x: string) => o && o.hasOwnProperty(x) && o[x], obj);
+const getProperty = (obj: object, key: string) => {
+  return key.split('.').filter((s) => s.length > 0)
+    .reduce((o: object, x: string) => o && o.hasOwnProperty(x) && o[x], obj);
 };
 
-const setProperty = (obj: Object, key: string, value: Object) => {
-  key.split(".")
-    .filter(s => s.length > 0)
-    .reduce((o: Object, x: string, idx: number, src: Array<string>): Object => {
+const setProperty = (obj: object, key: string, value: object) => {
+  key.split('.')
+    .filter((s) => s.length > 0)
+    .reduce((o: object, x: string, idx: number, src: Array<string>): object => {
       if (idx === src.length - 1) {
         const valueToSet = Array.isArray(value) ? clonedeep(value) : value;
         o[x] = valueToSet;
@@ -19,16 +19,16 @@ const setProperty = (obj: Object, key: string, value: Object) => {
     }, obj);
 };
 
-const copyProperty = (sourceObject: Object, resultObject: Object, propertyPath: string) => {
+const copyProperty = (sourceObject: object, resultObject: object, propertyPath: string) => {
   const value = getProperty(sourceObject, propertyPath);
   setProperty(resultObject, propertyPath, value);
 };
 
-const orderedJSONStringify = (sourceObject: Object, map: PropertyMap): string => {
+const orderedJSONStringify = (sourceObject: object, map: PropertyMap): string => {
   const mapKeys = Object.keys(map);
 
   const resultObject = {};
-  mapKeys.forEach(mk => {
+  mapKeys.forEach((mk) => {
     const childKeys = map[mk];
 
     // Remove starting $
@@ -40,7 +40,7 @@ const orderedJSONStringify = (sourceObject: Object, map: PropertyMap): string =>
     setProperty(resultObject, parentKey, Array.isArray(parent) ? parent : {});
 
     // Fetch value from source and set on output
-    childKeys.forEach(key => copyProperty(sourceObject, resultObject, `${parentKey}.${key}`));
+    childKeys.forEach((key) => copyProperty(sourceObject, resultObject, `${parentKey}.${key}`));
   });
 
   return JSON.stringify(resultObject);
