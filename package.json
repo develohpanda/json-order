@@ -1,7 +1,7 @@
 {
   "name": "json-order",
-  "version": "1.0.0",
-  "description": "Control the order of properties in JSON via a lookup object",
+  "version": "1.0.1",
+  "description": "Control the order of properties in JSON via a lookup object - including nested properties.",
   "main": "./dist/main.js",
   "types": "./dist/main.d.ts",
   "repository": {
@@ -22,7 +22,8 @@
   },
   "keywords": [
     "JSON",
-    "order"
+    "order",
+    "nested"
   ],
   "author": "Opender Singh",
   "license": "MIT",
