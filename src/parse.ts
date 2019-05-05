@@ -21,7 +21,7 @@ const traverseObject = (obj: object, map: PropertyMap, parentKey: string) => {
   });
 };
 
-const orderedJSONParse = (jsonString: string): OrderedParseResult => {
+const parse = (jsonString: string): OrderedParseResult => {
   const obj: object = JSON.parse(jsonString);
 
   const map = {};
@@ -32,4 +32,4 @@ const orderedJSONParse = (jsonString: string): OrderedParseResult => {
   };
 };
 
-export default orderedJSONParse;
+export default parse;

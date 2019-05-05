@@ -2,8 +2,8 @@
   "name": "json-order",
   "version": "1.0.1",
   "description": "Control the order of properties in JSON via a lookup object - including nested properties.",
-  "main": "./dist/main.js",
-  "types": "./dist/main.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/develohpanda/json-lookup-order.git"

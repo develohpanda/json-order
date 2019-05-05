@@ -1,9 +1,6 @@
-import orderedJSONParse from './orderedJSONParse';
-import orderedJSONStringify from './orderedJSONStringify';
+import parse from './parse';
+import stringify from './stringify';
 
-const orderedJSON = {
-    parse: orderedJSONParse,
-    stringify: orderedJSONStringify
-};
+const orderedJSON = { parse, stringify };
 
 export default orderedJSON;
