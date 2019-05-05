@@ -4,8 +4,8 @@
   "description": "Control the order of properties in JSON via a lookup object",
   "main": "lib/index.js",
   "scripts": {
+    "bootstrap": "flow-typed install",
     "test": "jest",
-    "flow": "flow",
     "prepack": "rimraf lib && npm run prepack:babel && npm run prepack:flow",
     "prepack:babel": "babel src/ -d lib",
     "prepack:flow": "flow-copy-source src lib"
@@ -28,10 +28,12 @@
   },
   "homepage": "https://github.com/develohpanda/json-lookup-order#readme",
   "devDependencies": {
+    "@babel/plugin-transform-flow-strip-types": "^7.4.4",
     "babel-cli": "^6.26.0",
     "babel-preset-flow": "^6.23.0",
     "flow-bin": "^0.98.0",
     "flow-copy-source": "^2.0.4",
+    "flow-typed": "^2.5.1",
     "jest": "^24.7.1",
     "jshint": "^2.10.2"
   },
