@@ -6,5 +6,6 @@ describe('orderedJSONParse ', () => {
         const result: OrderedParseResult = orderedJSONParse('{}');
 
         expect(result.result).toEqual({});
+        expect(result.map).toEqual({});
     });
 });
