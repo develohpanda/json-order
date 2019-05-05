@@ -1,7 +1,5 @@
-// @flow
-
-import orderedJSONParse from "../lib/orderedJSONParse";
-import type {OrderedParseResult} from "../lib/models";
+import orderedJSONParse from "../src/orderedJSONParse";
+import {OrderedParseResult} from "../src/models";
 
 describe("orderedJSONParse ", () => {
     it("returns nothing for a blank JSON string", () => {
@@ -9,4 +7,4 @@ describe("orderedJSONParse ", () => {
 
         expect(result.result).toBe({});
     });
-})
+});

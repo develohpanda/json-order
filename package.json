@@ -2,44 +2,49 @@
   "name": "json-order",
   "version": "1.0.0",
   "description": "Control the order of properties in JSON via a lookup object",
-  "main": "lib/index.js",
-  "scripts": {
-    "bootstrap": "flow-typed install",
-    "test": "flow && jest",
-    "prepack": "rimraf lib && npm run prepack:babel && npm run prepack:flow",
-    "prepack:babel": "babel src/ -d lib",
-    "prepack:flow": "flow-copy-source src lib"
-  },
-  "files": [
-    "lib"
-  ],
+  "main": "./dist/main.js",
+  "types": "./dist/main.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/develohpanda/json-lookup-order.git"
+  },
+  "bugs": {
+    "url": "https://github.com/develohpanda/json-lookup-order/issues"
+  },
+  "homepage": "https://github.com/develohpanda/json-lookup-order#readme",
+  "scripts": {
+    "test": "jest",
+    "test:cover": "jest --coverage",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "lint": "tslint {src,test}/**/*.ts",
+    "build": "tsc",
+    "prebuild": "rimraf ./dist"
   },
   "keywords": [
     "JSON",
     "order"
   ],
   "author": "Opender Singh",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/develohpanda/json-lookup-order/issues"
-  },
-  "homepage": "https://github.com/develohpanda/json-lookup-order#readme",
+  "license": "MIT",
   "devDependencies": {
-    "@babel/plugin-transform-flow-strip-types": "^7.4.4",
-    "babel-cli": "^6.26.0",
-    "babel-jest": "^24.7.1",
-    "babel-preset-flow": "^6.23.0",
-    "flow-bin": "^0.98.0",
-    "flow-copy-source": "^2.0.4",
-    "flow-typed": "^2.5.1",
-    "jest": "^24.7.1",
-    "jshint": "^2.10.2"
+    "@types/jest": "^20.0.5",
+    "@types/node": "^8.0.19",
+    "coveralls": "^2.13.1",
+    "dot-json": "^1.0.3",
+    "jest": "^20.0.4",
+    "rimraf": "^2.6.2",
+    "ts-jest": "^20.0.7",
+    "tslint": "^5.5.0",
+    "typescript": "^2.4.2"
   },
-  "dependencies": {
-    "lodash.clone": "^4.5.0",
-    "lodash.clonedeep": "^4.5.0"
+  "jest": {
+    "transform": {
+      ".*": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts)$",
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ]
   }
 }

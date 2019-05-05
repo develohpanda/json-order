@@ -1,9 +1,0 @@
-{
-    "esversion": 9,
-    "curly": true,
-    "eqeqeq": true,
-    "trailingcomma": true,
-    "freeze": true,
-    "undef": true,
-    "unused": true
-}

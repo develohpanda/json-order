@@ -1,7 +1,5 @@
-// @flow
-
 import clonedeep from 'lodash.clonedeep';
-import type { PropertyMap, OrderedParseResult } from "./models";
+import { PropertyMap, OrderedParseResult } from "./models";
 
 const getProperty = (obj: Object, key: string) => {
   return key.split('.').filter(s => s.length > 0)

@@ -1,10 +1,8 @@
-// @flow
-
-export type PropertyMap = {
+export interface PropertyMap {
     [key: string]: Array<string>
 }
 
-export type OrderedParseResult = {
+export interface OrderedParseResult {
     result: Object,
     map: PropertyMap
 }

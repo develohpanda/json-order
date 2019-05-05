@@ -1,6 +1,4 @@
-// @flow
-
-import type { PropertyMap, OrderedParseResult } from "./models";
+import { PropertyMap, OrderedParseResult } from "./models";
 
 const traverseObject = (obj: Object, map: PropertyMap, parentKey: string) => {
     const childKeys = Object.keys(obj);
