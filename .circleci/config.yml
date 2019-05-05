@@ -69,17 +69,6 @@ jobs:
           root: ~/repo
           <<: *whitelist
 
-  coveralls:
-    <<: *defaults
-
-    steps:
-      - attach_workspace:
-          at: ~/repo
-
-      - run:
-          name: Submit coverage report to Coveralls.io
-          command: yarn coveralls
-
   build:
     <<: *defaults
 
