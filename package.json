@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "bootstrap": "flow-typed install",
-    "test": "jest",
+    "test": "flow && jest",
     "prepack": "rimraf lib && npm run prepack:babel && npm run prepack:flow",
     "prepack:babel": "babel src/ -d lib",
     "prepack:flow": "flow-copy-source src lib"
@@ -30,6 +30,7 @@
   "devDependencies": {
     "@babel/plugin-transform-flow-strip-types": "^7.4.4",
     "babel-cli": "^6.26.0",
+    "babel-jest": "^24.7.1",
     "babel-preset-flow": "^6.23.0",
     "flow-bin": "^0.98.0",
     "flow-copy-source": "^2.0.4",
