@@ -24,7 +24,7 @@ const copyProperty = (sourceObject: object, resultObject: object, propertyPath: 
   setProperty(resultObject, propertyPath, value);
 };
 
-const orderedJSONStringify = (sourceObject: object, map: PropertyMap): string => {
+const stringify = (sourceObject: object, map: PropertyMap): string => {
   const mapKeys = Object.keys(map);
 
   const resultObject = {};
@@ -46,4 +46,4 @@ const orderedJSONStringify = (sourceObject: object, map: PropertyMap): string =>
   return JSON.stringify(resultObject);
 };
 
-export default orderedJSONStringify;
+export default stringify;
