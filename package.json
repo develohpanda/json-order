@@ -6,12 +6,12 @@
   "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/develohpanda/json-lookup-order.git"
+    "url": "git+https://github.com/develohpanda/json-order.git"
   },
   "bugs": {
-    "url": "https://github.com/develohpanda/json-lookup-order/issues"
+    "url": "https://github.com/develohpanda/json-order/issues"
   },
-  "homepage": "https://github.com/develohpanda/json-lookup-order#readme",
+  "homepage": "https://github.com/develohpanda/json-order#readme",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
