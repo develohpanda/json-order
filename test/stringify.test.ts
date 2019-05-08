@@ -1,5 +1,7 @@
 import { PropertyMap } from '../dist/models';
 import stringify from '../src/stringify';
+import { arrayBuilder as arr } from '../util/ArrayBuilder';
+import { objectBuilder as object } from '../util/ObjectBuilder';
 
 describe('stringify ', () => {
   const expectString = (obj: object, map: PropertyMap, str: string) =>
@@ -7,26 +9,41 @@ describe('stringify ', () => {
 
   it('returns nothing for a blank JSON string',
     () => expectString(
-      {},
-      {},
+      object()
+        .b(),
+      object()
+        .b(),
       '{}'));
 
   it('ignores properties not found in source',
     () => expectString(
-      {},
-      { $: ['a'] },
+      object()
+        .b(),
+      object()
+        .prop('$', arr('a'))
+        .b(),
       '{}'));
 
   it('ignores properties not found in map',
     () => expectString(
-      { a: '1', b: '2' },
-      { $: ['b'] },
+      object()
+        .prop('a', 1)
+        .prop('b', 2)
+        .b(),
+      object()
+        .prop('$', arr('b'))
+        .b(),
       '{"b":"2"}'));
 
   it('returns first level object properties in order',
     () => expectString(
-      { a: 2, b: 1 },
-      { $: ['b', 'a'] },
+      object()
+        .prop('a', 2)
+        .prop('b', 1)
+        .b(),
+      object()
+        .prop('$', arr('b', 'a'))
+        .b(),
       '{"b":1,"a":2}'));
 
   it('returns first level array value in order',
