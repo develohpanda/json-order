@@ -6,7 +6,7 @@ class ObjectBuilder {
     return this;
   }
 
-  public b() {
+  public build() {
     return this.obj;
   }
 }
