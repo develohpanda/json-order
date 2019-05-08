@@ -27,7 +27,7 @@ describe('stringify ', () => {
         .prop('b', 2).build(),
       object()
         .prop('$', arr('b')).build(),
-      '{"b":"2"}'));
+      '{"b":2}'));
 
   it('returns first level object properties in order',
     () => expectString(
@@ -59,8 +59,8 @@ describe('stringify ', () => {
         .build(),
       object()
         .prop('$', arr('a'))
-        .prop('$.a.1', arr('d', 'c')).build(),,
-      '{"a":[1,{"d":"2","c":"3"}]}'));
+        .prop('$.a.1', arr('d', 'c')).build(),
+      '{"a":[1,{"d":2,"c":3}]}'));
 
   it('ignores nested [array] > [object] properties not found in map',
     () => expectString(
