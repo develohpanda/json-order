@@ -3,7 +3,7 @@ import stringify from '../src/stringify';
 
 describe('stringify ', () => {
   const expectString = (obj: object, map: PropertyMap, str: string) =>
-    expect(stringify(obj, map).replace(/\s/g, '')).toEqual(str);
+    expect(stringify(obj, map, 0)).toEqual(str);
 
   it('returns nothing for a blank JSON string',
     () => expectString(

@@ -44,7 +44,7 @@ const copyProperty = (sourceObject: object, resultObject: object, propertyPath: 
   }
 };
 
-const stringify = (sourceObject: object, map: PropertyMap): string => {
+const stringify = (sourceObject: object, map: PropertyMap, space?: number): string => {
   const mapKeys = Object.keys(map);
 
   const resultObject = {};
@@ -67,7 +67,7 @@ const stringify = (sourceObject: object, map: PropertyMap): string => {
     }
   });
 
-  return JSON.stringify(resultObject);
+  return JSON.stringify(resultObject, null, space);
 };
 
 export default stringify;
