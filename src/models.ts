@@ -3,6 +3,6 @@ export interface PropertyMap {
 }
 
 export interface OrderedParseResult {
-  result: object;
+  object: object;
   map: PropertyMap;
 }

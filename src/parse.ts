@@ -27,7 +27,7 @@ const parse = (jsonString: string): OrderedParseResult => {
   const map = {};
   traverseObject(obj, map, '$');
   return {
-    result: obj,
+    object: obj,
     map
   };
 };
