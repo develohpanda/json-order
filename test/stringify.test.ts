@@ -1,7 +1,5 @@
 import { PropertyMap } from '../dist/models';
 import stringify from '../src/stringify';
-import { arrayBuilder as arr } from '../util/ArrayBuilder';
-import { objectBuilder as object } from '../util/ObjectBuilder';
 
 describe('stringify ', () => {
   const expectString = (obj: object, map: PropertyMap, str: string) =>
@@ -9,58 +7,39 @@ describe('stringify ', () => {
 
   it('returns nothing for a blank JSON string',
     () => expectString(
-      object().build(),
-      object().build(),
+      {},
+      {},
       '{}'));
 
   it('ignores properties not found in source',
     () => expectString(
-      object().build(),
-      object()
-        .prop('$', arr('a')).build(),
+      {},
+      { $: ['a'] },
       '{}'));
 
   it('ignores properties not found in map',
     () => expectString(
-      object()
-        .prop('a', 1)
-        .prop('b', 2).build(),
-      object()
-        .prop('$', arr('b')).build(),
-      '{"b":2}'));
+      { a: '1', b: '2' },
+      { $: ['b'] },
+      '{"b":"2"}'));
 
   it('returns first level object properties in order',
     () => expectString(
-      object()
-        .prop('a', 2)
-        .prop('b', 1).build(),
-      object()
-        .prop('$', arr('b', 'a')).build(),
+      { a: 2, b: 1 },
+      { $: ['b', 'a'] },
       '{"b":1,"a":2}'));
 
   it('returns first level array value in order',
     () => expectString(
-      object()
-        .prop('a', arr('2', 1, true)).build(),
-      object()
-        .prop('$', arr('a')).build(),
+      { a: ['2', 1, true] },
+      { $: ['a'] },
       '{"a":["2",1,true]}'));
 
   it('returns nested [array] > [object] properties in expected order',
     () => expectString(
-      object()
-        .prop('a',
-          arr(
-            1,
-            object()
-              .prop('c', 3)
-              .prop('d', 2).build()
-          ))
-        .build(),
-      object()
-        .prop('$', arr('a'))
-        .prop('$.a.1', arr('d', 'c')).build(),
-      '{"a":[1,{"d":2,"c":3}]}'));
+      { a: [1, { c: '3', d: '2' }] },
+      { '$': ['a'], '$.a.1': ['d', 'c'] },
+      '{"a":[1,{"d":"2","c":"3"}]}'));
 
   it('ignores nested [array] > [object] properties not found in map',
     () => expectString(
