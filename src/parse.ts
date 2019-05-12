@@ -21,11 +21,11 @@ const traverseObject = (obj: object, map: PropertyMap, parentKey: string) => {
   });
 };
 
-const parse = (jsonString: string): OrderedParseResult => {
+const parse = (jsonString: string, prefix: string = '$'): OrderedParseResult => {
   const obj: object = JSON.parse(jsonString);
 
   const map = {};
-  traverseObject(obj, map, '$');
+  traverseObject(obj, map, prefix);
   return {
     object: obj,
     map

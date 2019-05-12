@@ -44,15 +44,20 @@ const copyProperty = (sourceObject: object, resultObject: object, propertyPath: 
   }
 };
 
-const stringify = (sourceObject: object, map: PropertyMap, space?: number): string => {
+const stringify = (sourceObject: object, map?: PropertyMap, space?: number): string => {
+  if (!map) {
+    return JSON.stringify(sourceObject, null, space);
+  }
+
   const mapKeys = Object.keys(map);
+  const prefixLength = mapKeys[0] && mapKeys[0].length || 0;
 
   const resultObject = {};
   mapKeys.forEach((mk) => {
     const childKeys = map[mk];
 
     // Remove starting $
-    const parentKey = mk.substr(1);
+    const parentKey = mk.substr(prefixLength);
 
     const parent = getProperty(sourceObject, parentKey);
 

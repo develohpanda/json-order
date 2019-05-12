@@ -2,7 +2,7 @@ import { PropertyMap } from '../src/models';
 import parse from '../src/parse';
 
 describe('parse ', () => {
-  const expectMap = (input: string, map: PropertyMap) => expect(parse(input).map).toEqual(map);
+  const expectMap = (input: string, map: PropertyMap) => expect(parse(input, '$').map).toEqual(map);
 
   it('returns nothing for a blank JSON string', () => expectMap('{}', {}));
 

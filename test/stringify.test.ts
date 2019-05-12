@@ -17,6 +17,12 @@ describe('stringify ', () => {
       { $: ['a'] },
       '{}'));
 
+  it('returns regular json string if map is undefined',
+    () => expectString(
+      { a: '1', b: '2' },
+      null,
+      '{"a":"1","b":"2"}'));
+
   it('ignores properties not found in map',
     () => expectString(
       { a: '1', b: '2' },

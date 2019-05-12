@@ -9,8 +9,10 @@ json-order allows for conversion between JS Objects and a JSON string while keep
 ### `parse`
 To parse a JSON string and generate a map:
 ```js
-const result = orderedJson.parse('{...}');
+const result = orderedJson.parse('{...}', '$');
 ```
+
+The second parameter controls what the map prefix should be.
 
 `result.object` will contain a JS object while `result.map` will contain the generated property map.
 
