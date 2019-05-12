@@ -2,9 +2,17 @@ import { PropertyMap } from '../src/models';
 import parse from '../src/parse';
 
 describe('parse ', () => {
-  const expectMap = (input: string, map: PropertyMap) => expect(parse(input, '$').map).toEqual(map);
+  const expectMap = (input: string, map: PropertyMap) => expect(parse(input, '$', '.').map).toEqual(map);
 
   it('returns nothing for a blank JSON string', () => expectMap('{}', {}));
+
+  it('throws error if prefix is an empty string', () => {
+    expect(() => parse('', '', '.')).toThrowError('Prefix should not be an empty string.');
+  });
+
+  it('throws error if separator is an empty string', () => {
+    expect(() => parse('', '$', '')).toThrowError('Separator should not be an empty string.');
+  });
 
   it('handles top level values for of primitive types', () => {
     const input = `
@@ -49,6 +57,54 @@ describe('parse ', () => {
     };
 
     expectMap(input, map);
+  });
+
+  it('handles multi-character prefix', () => {
+    const input = `
+    {
+      "a": {
+        "a2": {
+          "b": "str"
+        },
+        "a1": {
+          "d": 2,
+          "c": false
+        }
+      }
+    }`;
+
+    const map = {
+      'ab': ['a'],
+      'ab.a': ['a2', 'a1'],
+      'ab.a.a2': ['b'],
+      'ab.a.a1': ['d', 'c']
+    };
+
+    expect(parse(input, 'ab', '.').map).toEqual(map);
+  });
+
+  it('handles multi-character separator', () => {
+    const input = `
+    {
+      "a": {
+        "a2": {
+          "b": "str"
+        },
+        "a1": {
+          "d": 2,
+          "c": false
+        }
+      }
+    }`;
+
+    const map = {
+      '$': ['a'],
+      '$~|a': ['a2', 'a1'],
+      '$~|a~|a2': ['b'],
+      '$~|a~|a1': ['d', 'c']
+    };
+
+    expect(parse(input, '$', '~|').map).toEqual(map);
   });
 
   it('handles nesting [object] > [object]', () => {

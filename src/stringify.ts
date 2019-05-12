@@ -6,10 +6,10 @@ interface GetResult {
   value: object;
 }
 
-const getProperty = (obj: object, key: string): GetResult => {
+const getProperty = (obj: object, key: string, separator: string): GetResult => {
   let exists = true;
 
-  const value = key.split('.')
+  const value = key.split(separator)
     .filter((s) => s.length > 0)
     .reduce((o: object, x: string) => {
       exists = o && o.hasOwnProperty(x);
@@ -24,8 +24,8 @@ const getProperty = (obj: object, key: string): GetResult => {
   return { exists, value };
 };
 
-const setProperty = (obj: object, key: string, value: object) => {
-  key.split('.')
+const setProperty = (obj: object, key: string, value: object, separator: string) => {
+  key.split(separator)
     .filter((s) => s.length > 0)
     .reduce((o: object, x: string, idx: number, src: Array<string>): object => {
       if (idx === src.length - 1) {
@@ -37,14 +37,18 @@ const setProperty = (obj: object, key: string, value: object) => {
     }, obj);
 };
 
-const copyProperty = (sourceObject: object, resultObject: object, propertyPath: string) => {
-  const result = getProperty(sourceObject, propertyPath);
+const copyProperty = (sourceObject: object, resultObject: object, propertyPath: string, separator: string) => {
+  const result = getProperty(sourceObject, propertyPath, separator);
   if (result.exists) {
-    setProperty(resultObject, propertyPath, result.value);
+    setProperty(resultObject, propertyPath, result.value, separator);
   }
 };
 
-const stringify = (sourceObject: object, map?: PropertyMap, space?: number): string => {
+const stringify = (sourceObject: object, map: PropertyMap | null, separator: string = '~', space?: number): string => {
+  if (separator.length < 1) {
+    throw new Error('Separator should not be an empty string.');
+  }
+
   if (!map) {
     return JSON.stringify(sourceObject, null, space);
   }
@@ -59,16 +63,16 @@ const stringify = (sourceObject: object, map?: PropertyMap, space?: number): str
     // Remove starting $
     const parentKey = mk.substr(prefixLength);
 
-    const parent = getProperty(sourceObject, parentKey);
+    const parent = getProperty(sourceObject, parentKey, separator);
 
     if (parent.exists) {
       // Set a default value for the property
       const defaultValue = Array.isArray(parent.value) ? parent.value : {};
 
-      setProperty(resultObject, parentKey, defaultValue);
+      setProperty(resultObject, parentKey, defaultValue, separator);
 
       // Fetch value from source and set on output
-      childKeys.forEach((key) => copyProperty(sourceObject, resultObject, `${parentKey}.${key}`));
+      childKeys.forEach((key) => copyProperty(sourceObject, resultObject, `${parentKey}${separator}${key}`, separator));
     }
   });
 
