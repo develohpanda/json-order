@@ -12,7 +12,7 @@ To parse a JSON string and generate a map:
 const result = orderedJson.parse('{...}', '$');
 ```
 
-The second parameter controls what the map prefix should be.
+The second parameter is optional and controls what the map property prefix should be.
 
 `result.object` will contain a JS object while `result.map` will contain the generated property map.
 
