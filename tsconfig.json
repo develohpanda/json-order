@@ -24,12 +24,10 @@
     "declaration": true
   },
   "include": [
-    "src/**/*"
+    "src"
   ],
   "exclude": [
-    "node_modules/**/*",
-    "src/**/*.test.tsx",
-    "src/**/*.story.tsx",
-    "test/**/*"
+    "node_modules",
+    "__tests__",
   ]
 }
