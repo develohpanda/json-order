@@ -2,7 +2,7 @@ import { PropertyMap } from '../dist/models';
 import stringify from '../src/stringify';
 
 describe('stringify ', () => {
-  const expectString = (obj: object, map: PropertyMap, str: string) =>
+  const expectString = (obj: object, map: PropertyMap | null, str: string) =>
     expect(stringify(obj, map, '.', 0)).toEqual(str);
 
   it('returns nothing for a blank JSON string',
