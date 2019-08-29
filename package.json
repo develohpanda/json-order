@@ -34,7 +34,7 @@
     "rimraf": "^3.0.0",
     "ts-jest": "^20.0.7",
     "tslint": "^5.5.0",
-    "typescript": "3.5.3"
+    "typescript": "3.6.2"
   },
   "jest": {
     "transform": {
