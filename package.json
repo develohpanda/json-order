@@ -36,16 +36,6 @@
     "tslint": "^5.5.0",
     "typescript": "3.5.2"
   },
-  "jest": {
-    "transform": {
-      ".*": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts)$",
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ]
-  },
   "dependencies": {
     "lodash.clonedeep": "^4.5.0"
   }
