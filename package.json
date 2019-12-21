@@ -1,9 +1,12 @@
 {
   "name": "json-order",
-  "version": "1.0.0",
+  "version": "1.0.12",
   "description": "Control the order of properties in JSON via a lookup object - including nested properties.",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
+  "files": [
+    "src"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/develohpanda/json-order.git"
@@ -14,11 +17,23 @@
   "homepage": "https://github.com/develohpanda/json-order#readme",
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch",
     "test:cover": "jest --coverage",
-    "lint": "tslint {src,test}/**/*.ts",
-    "build": "tsc",
-    "prebuild": "rimraf ./dist"
+    "test:watch": "jest --watch",
+    "test:ci": "jest --ci --reporters=jest-junit --coverage --coverageReporters=cobertura",
+    "compile": "tsc",
+    "lint": "eslint **/*.{t,j}s",
+    "lint:fix": "yarn lint --fix"
+  },
+  "lint-staged": {
+    "*.{{t,j}s{,x}}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "keywords": [
     "JSON",
@@ -30,21 +45,21 @@
   "devDependencies": {
     "@types/jest": "^24.0.15",
     "@types/lodash.clonedeep": "^4.5.6",
-    "jest": "^21.2.1",
-    "rimraf": "^3.0.0",
-    "ts-jest": "^20.0.7",
+    "@typescript-eslint/eslint-plugin": "^2.12.0",
+    "@typescript-eslint/parser": "^2.12.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-jest": "^23.1.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^3.1.0",
+    "jest": "^24.9.0",
+    "jest-junit": "^10.0.0",
+    "lint-staged": "8.2.1",
+    "prettier": "^1.19.1",
+    "ts-jest": "^24.2.0",
     "tslint": "^5.5.0",
-    "typescript": "3.7.3"
-  },
-  "jest": {
-    "transform": {
-      ".*": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts)$",
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ]
+    "typescript": "3.7.4"
   },
   "dependencies": {
     "lodash.clonedeep": "^4.5.0"
