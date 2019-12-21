@@ -2,7 +2,7 @@ export interface PropertyMap {
   [key: string]: Array<string>;
 }
 
-export interface OrderedParseResult {
-  object: object;
+export interface OrderedParseResult<T> {
+  object: T;
   map: PropertyMap;
 }

@@ -30,15 +30,15 @@
   "devDependencies": {
     "@types/jest": "^24.0.15",
     "@types/lodash.clonedeep": "^4.5.6",
-    "jest": "^21.2.1",
+    "jest": "^24.9.0",
     "rimraf": "^3.0.0",
-    "ts-jest": "^20.0.7",
+    "ts-jest": "^24.2.0",
     "tslint": "^5.5.0",
-    "typescript": "3.7.3"
+    "typescript": "3.7.4"
   },
   "jest": {
     "transform": {
-      ".*": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      ".*": "ts-jest"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts)$",
     "moduleFileExtensions": [

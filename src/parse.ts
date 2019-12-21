@@ -21,23 +21,32 @@ const traverseObject = (obj: object, map: PropertyMap, parentKey: string, separa
   });
 };
 
-const parse = (jsonString: string, prefix: string = '$', separator: string = '~'): OrderedParseResult => {
-  if (prefix.length < 1) {
-    throw new Error('Prefix should not be an empty string.');
-  }
+/**
+ * Parse a JSON string and generate a map
+ *
+ * @param jsonString a json string
+ * @param prefix a non-empty `string` that controls what the key prefix value is in the generated map. Defaults to `$`.
+ * @param separator a non-empty `string` that controls what the key separator is in the generated map. Defaults to `~`.
+ * @returns an object containing the parsed `object: T` and the `map: PropertyMap`
+ */
+const parse =
+  <T extends object>(jsonString: string, prefix: string = '$', separator: string = '~'): OrderedParseResult<T> => {
+    if (prefix.length < 1) {
+      throw new Error('Prefix should not be an empty string.');
+    }
 
-  if (separator.length < 1) {
-    throw new Error('Separator should not be an empty string.');
-  }
+    if (separator.length < 1) {
+      throw new Error('Separator should not be an empty string.');
+    }
 
-  const obj: object = JSON.parse(jsonString);
+    const obj: T = JSON.parse(jsonString);
 
-  const map = {};
-  traverseObject(obj, map, prefix, separator);
-  return {
-    object: obj,
-    map
+    const map = {};
+    traverseObject(obj, map, prefix, separator);
+    return {
+      object: obj,
+      map
+    };
   };
-};
 
 export default parse;
