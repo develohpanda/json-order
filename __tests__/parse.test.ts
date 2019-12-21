@@ -1,17 +1,22 @@
-import { PropertyMap } from '../src/models';
+import {PropertyMap} from '../src/models';
 import parse from '../src/parse';
 
 describe('parse ', () => {
-  const expectMap = (input: string, map: PropertyMap) => expect(parse(input, '$', '.').map).toEqual(map);
+  const expectMap = (input: string, map: PropertyMap) =>
+    expect(parse(input, '$', '.').map).toEqual(map);
 
   it('returns nothing for a blank JSON string', () => expectMap('{}', {}));
 
   it('throws error if prefix is an empty string', () => {
-    expect(() => parse('', '', '.')).toThrowError('Prefix should not be an empty string.');
+    expect(() => parse('', '', '.')).toThrowError(
+      'Prefix should not be an empty string.'
+    );
   });
 
   it('throws error if separator is an empty string', () => {
-    expect(() => parse('', '$', '')).toThrowError('Separator should not be an empty string.');
+    expect(() => parse('', '$', '')).toThrowError(
+      'Separator should not be an empty string.'
+    );
   });
 
   it('handles top level values for of primitive types', () => {
@@ -23,7 +28,7 @@ describe('parse ', () => {
     }`;
 
     const map = {
-      $: ['b', 'c', 'a']
+      $: ['b', 'c', 'a'],
     };
 
     expectMap(input, map);
@@ -40,7 +45,7 @@ describe('parse ', () => {
 
     const map = {
       '$': ['a'],
-      '$.a': ['az', 'ay']
+      '$.a': ['az', 'ay'],
     };
 
     expectMap(input, map);
@@ -53,7 +58,7 @@ describe('parse ', () => {
     }`;
 
     const map = {
-      $: ['a']
+      $: ['a'],
     };
 
     expectMap(input, map);
@@ -77,7 +82,7 @@ describe('parse ', () => {
       'ab': ['a'],
       'ab.a': ['a2', 'a1'],
       'ab.a.a2': ['b'],
-      'ab.a.a1': ['d', 'c']
+      'ab.a.a1': ['d', 'c'],
     };
 
     expect(parse(input, 'ab', '.').map).toEqual(map);
@@ -101,7 +106,7 @@ describe('parse ', () => {
       '$': ['a'],
       '$~|a': ['a2', 'a1'],
       '$~|a~|a2': ['b'],
-      '$~|a~|a1': ['d', 'c']
+      '$~|a~|a1': ['d', 'c'],
     };
 
     expect(parse(input, '$', '~|').map).toEqual(map);
@@ -125,7 +130,7 @@ describe('parse ', () => {
       '$': ['a'],
       '$.a': ['a2', 'a1'],
       '$.a.a2': ['b'],
-      '$.a.a1': ['d', 'c']
+      '$.a.a1': ['d', 'c'],
     };
 
     expectMap(input, map);
@@ -138,7 +143,7 @@ describe('parse ', () => {
     }`;
 
     const map = {
-      $: ['a']
+      $: ['a'],
     };
 
     expectMap(input, map);
@@ -151,7 +156,7 @@ describe('parse ', () => {
     }`;
 
     const map = {
-      $: ['a']
+      $: ['a'],
     };
 
     expectMap(input, map);
@@ -167,7 +172,7 @@ describe('parse ', () => {
 
     const map = {
       '$': ['a'],
-      '$.a.2': ['b']
+      '$.a.2': ['b'],
     };
 
     expectMap(input, map);
@@ -186,7 +191,7 @@ describe('parse ', () => {
     const map = {
       '$': ['c'],
       '$.c.2.1': ['b'],
-      '$.c.3': ['a']
+      '$.c.3': ['a'],
     };
 
     expectMap(input, map);
@@ -210,7 +215,7 @@ describe('parse ', () => {
     const map = {
       '$': ['d'],
       '$.d.2.1': ['c', 'b'],
-      '$.d.2.1.b.1': ['a']
+      '$.d.2.1.b.1': ['a'],
     };
 
     expectMap(input, map);

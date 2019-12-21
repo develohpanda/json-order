@@ -1,6 +1,7 @@
-# json-order
+# 📚 json-order
 
-[![npm version](https://badge.fury.io/js/json-order.svg)](https://badge.fury.io/js/json-order) [![CircleCI](https://circleci.com/gh/develohpanda/json-order.svg?style=svg)](https://circleci.com/gh/develohpanda/json-order)
+[![npm](https://img.shields.io/npm/v/json-order?logo=npm)](https://www.npmjs.com/package/json-order)
+[![Azure DevOps builds](https://img.shields.io/azure-devops/build/develohpanda/5974ee25-e62e-483b-b9aa-c3560b2a7be1/1?label=Azure%20Pipelines&logo=Azure%20Pipelines)](https://dev.azure.com/json-order/_build?definitionId=1)
 
 json-order allows for conversion between JS Objects and a JSON string while keeping property order, controlled via a property map. **All manner of nesting is supported**.
 
