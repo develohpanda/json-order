@@ -59,7 +59,7 @@
     "prettier": "^1.19.1",
     "ts-jest": "^24.2.0",
     "tslint": "^5.5.0",
-    "typescript": "3.7.4"
+    "typescript": "3.7.5"
   },
   "dependencies": {
     "lodash.clonedeep": "^4.5.0"
