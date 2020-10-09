@@ -2,3 +2,4 @@ node_modules/
 dist
 coverage
 jest.config.js
+commitlint.config.js
