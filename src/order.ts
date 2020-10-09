@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-types */
+
 import clonedeep from 'lodash.clonedeep';
 import {PropertyMap} from './models';
 
@@ -15,7 +17,7 @@ const getProperty = (
 
   const value = key
     .split(separator)
-    .filter(s => s.length > 0)
+    .filter((s) => s.length > 0)
     .reduce((o: object, x: string) => {
       exists = o && o.hasOwnProperty(x);
 
@@ -37,11 +39,11 @@ const setProperty = (
 ) => {
   key
     .split(separator)
-    .filter(s => s.length > 0)
+    .filter((s) => s.length > 0)
     .reduce((o: object, x: string, idx: number, src: Array<string>): object => {
       if (idx === src.length - 1) {
         const valueToSet = Array.isArray(value)
-          ? clonedeep(value).map(p => (typeof p === 'object' ? {} : p))
+          ? clonedeep(value).map((p) => (typeof p === 'object' ? {} : p))
           : value;
         o[x] = valueToSet;
       }
@@ -87,7 +89,7 @@ const order = <T extends object>(
   const prefixLength = (mapKeys[0] && mapKeys[0].length) || 0;
 
   const resultObject = {};
-  mapKeys.forEach(mk => {
+  mapKeys.forEach((mk) => {
     const childKeys = map[mk];
 
     // Remove prefix
@@ -102,7 +104,7 @@ const order = <T extends object>(
       setProperty(resultObject, parentKey, defaultValue, separator);
 
       // Fetch value from source and set on output
-      childKeys.forEach(key =>
+      childKeys.forEach((key) =>
         copyProperty(
           sourceObject,
           resultObject,
