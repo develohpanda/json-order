@@ -6,7 +6,7 @@ on:
   pull_request:
     types: [ assigned, opened, synchronize, reopened, labeled ]
 jobs:
-  node:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:

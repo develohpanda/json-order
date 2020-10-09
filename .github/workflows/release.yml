@@ -4,23 +4,26 @@ on:
     branches:
       - master
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [10, 12]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node --version
+      - run: yarn install
+      - run: yarn lint
+      - run: yarn test:ci
+      - run: yarn compile
   release:
     name: Release
+    needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: Wait for Test to succeed
-        uses: fountainhead/action-wait-for-check@v1.0.0
-        id: wait-for-build
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: Test
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-
-      - name: Do something with a failing build
-        if: steps.wait-for-build.outputs.conclusion == 'failure'
-        run: |
-          echo CI failed, exiting release
-          exit 0
       - name: Checkout
         uses: actions/checkout@v2
         with:
