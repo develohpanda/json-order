@@ -1,0 +1,23 @@
+name: Test
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [ assigned, opened, synchronize, reopened, labeled ]
+jobs:
+  node:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [10, 12]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node --version
+      - run: yarn install
+      - run: yarn lint
+      - run: yarn test:ci
+      - run: yarn compile
