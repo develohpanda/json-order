@@ -22,9 +22,15 @@
           node-version: 12
           registry-url: 'https://registry.npmjs.org'
         if: ${{ steps.release.outputs.release_created }}
-      - run: npm ci
+      - run: yarn install
         if: ${{ steps.release.outputs.release_created }}
-      - run: npm publish
+      - run: yarn lint
+        if: ${{ steps.release.outputs.release_created }}
+      - run: yarn test:ci
+        if: ${{ steps.release.outputs.release_created }}
+      - run: yarn compile
+        if: ${{ steps.release.outputs.release_created }}
+      - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         if: ${{ steps.release.outputs.release_created }}
