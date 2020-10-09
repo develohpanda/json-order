@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-types */
+
 import {OrderedParseResult, PropertyMap} from './models';
 
 const traverseObject = <T extends object>(
@@ -17,7 +19,7 @@ const traverseObject = <T extends object>(
     map[`${parentKey}`] = childKeys;
   }
 
-  childKeys.forEach(childKey => {
+  childKeys.forEach((childKey) => {
     const value = obj[childKey];
 
     if (typeof value === 'object') {

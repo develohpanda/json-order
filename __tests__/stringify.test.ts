@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import stringify from '../src/stringify';
 import {PropertyMap} from '../src/models';
 

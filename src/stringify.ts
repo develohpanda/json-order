@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-types */
+
 import {PropertyMap} from './models';
 import order from './order';
 

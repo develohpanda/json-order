@@ -1,31 +1,4 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "target": "es5",
-    "sourceMap": false,
-    "allowJs": false,
-    "moduleResolution": "node",
-    "outDir": "dist",
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "strict": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true,
-    "allowSyntheticDefaultImports": true,
-    "lib": [
-      "es2015",
-    ],
-    "declaration": true
-  },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "node_modules",
-    "jest.config.js",
-    "commitlint.config.js"
-  ]
+  "extends": "./tsconfig.base.json",
+  "include": ["src", "__tests__"]
 }
