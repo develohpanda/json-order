@@ -8,12 +8,12 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: Wait for ci to succeed
+      - name: Wait for Test to succeed
         uses: fountainhead/action-wait-for-check@v1.0.0
         id: wait-for-build
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: ci
+          checkName: Test
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Do something with a failing build
