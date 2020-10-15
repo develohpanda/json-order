@@ -2,8 +2,8 @@
   "name": "json-order",
   "version": "0.0.0-development",
   "description": "Control the order of properties in JSON via a lookup object - including nested properties.",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
