@@ -8,6 +8,10 @@ const traverseObject = <T extends object>(
   parentKey: string,
   separator: string
 ) => {
+  if(typeof value === 'number' && obj > Number.MAX_SAFE_INTEGER) {
+    throw new Error('Do not know how to serialize a BigInt')
+  }
+  
   const childKeys = Object.keys(obj);
 
   if (childKeys.length === 0) {
