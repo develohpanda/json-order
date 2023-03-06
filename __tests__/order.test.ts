@@ -18,6 +18,10 @@ describe('order()', () => {
     );
   });
 
+  it('throws error if separator is a slash', () => {
+    expect(() => order({}, {}, '\\')).toThrowError('Separator cannot be "\\".');
+  });
+
   it('ignores properties not found in source', () =>
     expectObject({}, {$: ['a']}, '{}'));
 

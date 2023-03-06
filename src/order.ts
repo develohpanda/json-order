@@ -107,8 +107,8 @@ const order = <T extends object>(
 ): T => {
   if (separator.length < 1) {
     throw new Error('Separator should not be an empty string.');
-  } else if (separator === '/') {
-    throw new Error('Separator cannot be "/".');
+  } else if (separator === '\\') {
+    throw new Error('Separator cannot be "\\".');
   }
 
   if (!map) {

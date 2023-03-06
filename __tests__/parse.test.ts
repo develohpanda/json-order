@@ -19,6 +19,12 @@ describe('parse ', () => {
     );
   });
 
+  it('throws error if separator is a slash', () => {
+    expect(() => parse('', '$', '\\')).toThrowError(
+      'Separator cannot be "\\".'
+    );
+  });
+
   it('handles top level values for of primitive types', () => {
     const input = `
     {
