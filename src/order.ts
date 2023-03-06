@@ -8,6 +8,36 @@ interface GetResult {
   value: object;
 }
 
+const splitKey = (key: string, separator: string): Array<string> => {
+  const parts: Array<string> = [];
+  let currentPart = '';
+  let isLiteral = false;
+
+  for (let index = 0; index < key.length; index++) {
+    const character = key[index];
+
+    if (isLiteral) {
+      currentPart += character;
+      isLiteral = false;
+    } else if (character === '\\') {
+      isLiteral = true;
+    } else if (
+      character === separator[0] &&
+      key.substr(index, separator.length) === separator
+    ) {
+      parts.push(currentPart);
+      currentPart = '';
+      index += separator.length - 1;
+    } else {
+      currentPart += character;
+    }
+  }
+
+  parts.push(currentPart);
+
+  return parts;
+};
+
 const getProperty = (
   obj: object,
   key: string,
@@ -15,9 +45,8 @@ const getProperty = (
 ): GetResult => {
   let exists = true;
 
-  const value = key
-    .split(separator)
-    .filter((s) => s.length > 0)
+  const value = splitKey(key, separator)
+    .slice(1)
     .reduce((o: object, x: string) => {
       exists = o && o.hasOwnProperty(x);
 
@@ -37,9 +66,8 @@ const setProperty = (
   value: object,
   separator: string
 ) => {
-  key
-    .split(separator)
-    .filter((s) => s.length > 0)
+  splitKey(key, separator)
+    .slice(1)
     .reduce((o: object, x: string, idx: number, src: Array<string>): object => {
       if (idx === src.length - 1) {
         const valueToSet = Array.isArray(value)
@@ -79,6 +107,8 @@ const order = <T extends object>(
 ): T => {
   if (separator.length < 1) {
     throw new Error('Separator should not be an empty string.');
+  } else if (separator === '/') {
+    throw new Error('Separator cannot be "/".');
   }
 
   if (!map) {

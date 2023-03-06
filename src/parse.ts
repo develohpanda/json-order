@@ -1,6 +1,16 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
+import escapeStringRegexp from 'escape-string-regexp';
 import {OrderedParseResult, PropertyMap} from './models';
+
+const escapeKey = (key: string, separator: string): string => {
+  const stringsToEscape = ['\\', separator];
+  const pattern = stringsToEscape
+    .map((string) => escapeStringRegexp(string))
+    .join('|');
+
+  return key.replace(new RegExp(`(${pattern})`, 'g'), '\\$1');
+};
 
 const traverseObject = <T extends object>(
   obj: T,
@@ -26,7 +36,7 @@ const traverseObject = <T extends object>(
       traverseObject(
         value,
         map,
-        `${parentKey}${separator}${childKey}`,
+        `${parentKey}${separator}${escapeKey(childKey, separator)}`,
         separator
       );
     }
@@ -52,12 +62,14 @@ const parse = <T extends object>(
 
   if (separator.length < 1) {
     throw new Error('Separator should not be an empty string.');
+  } else if (separator === '/') {
+    throw new Error('Separator cannot be "/".');
   }
 
   const obj: T = JSON.parse(jsonString);
 
   const map = {};
-  traverseObject(obj, map, prefix, separator);
+  traverseObject(obj, map, escapeKey(prefix, separator), separator);
   return {
     object: obj,
     map,
