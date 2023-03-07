@@ -1,16 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import escapeStringRegexp from 'escape-string-regexp';
+import {escapeKey} from './key';
 import {OrderedParseResult, PropertyMap} from './models';
-
-const escapeKey = (key: string, separator: string): string => {
-  const stringsToEscape = ['\\', separator];
-  const pattern = stringsToEscape
-    .map((string) => escapeStringRegexp(string))
-    .join('|');
-
-  return key.replace(new RegExp(`(${pattern})`, 'g'), '\\$1');
-};
 
 const traverseObject = <T extends object>(
   obj: T,

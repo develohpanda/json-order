@@ -186,7 +186,7 @@ describe('order()', () => {
     );
   });
 
-  it('unescapes slashes as well as the separator when it exists in the map', () => {
+  it('handles escape sequences in the object', () => {
     expectObject(
       {
         '.a': {
@@ -225,6 +225,26 @@ describe('order()', () => {
         '"\\\\.":{"b":{"x":"str"},"a":{"w":"str"}},' +
         '"\\\\":{"a":{"v":"str"}},' +
         '".a":{"c":{"u":"str"},"b":{"t":"str"},"a":{"s":"str"}}}'
+    );
+  });
+
+  it('handles escape sequences in child properties of the object', () => {
+    expectObject(
+      {
+        property: {
+          '..': {'.': 4, '..': 3},
+          '.': {'..': 0, '...': 2, '.': 1},
+          '...': {'.': 5},
+        },
+      },
+      {
+        '$': ['property'],
+        '$.property': ['.', '..', '...'],
+        '$.property.\\.': ['..', '.', '...'],
+        '$.property.\\.\\.': ['..', '.'],
+        '$.property.\\.\\.\\.': ['.'],
+      },
+      '{"property":{".":{"..":0,".":1,"...":2},"..":{"..":3,".":4},"...":{".":5}}}'
     );
   });
 

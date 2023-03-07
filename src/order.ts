@@ -1,42 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import clonedeep from 'lodash.clonedeep';
+import {escapeKey, splitKey} from './key';
 import {PropertyMap} from './models';
 
 interface GetResult {
   exists: boolean;
   value: object;
 }
-
-const splitKey = (key: string, separator: string): Array<string> => {
-  const parts: Array<string> = [];
-  let currentPart = '';
-  let isLiteral = false;
-
-  for (let index = 0; index < key.length; index++) {
-    const character = key[index];
-
-    if (isLiteral) {
-      currentPart += character;
-      isLiteral = false;
-    } else if (character === '\\') {
-      isLiteral = true;
-    } else if (
-      character === separator[0] &&
-      key.substr(index, separator.length) === separator
-    ) {
-      parts.push(currentPart);
-      currentPart = '';
-      index += separator.length - 1;
-    } else {
-      currentPart += character;
-    }
-  }
-
-  parts.push(currentPart);
-
-  return parts;
-};
 
 const getProperty = (
   obj: object,
@@ -138,7 +109,7 @@ const order = <T extends object>(
         copyProperty(
           sourceObject,
           resultObject,
-          `${parentKey}${separator}${key}`,
+          `${parentKey}${separator}${escapeKey(key, separator)}`,
           separator
         )
       );
