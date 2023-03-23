@@ -23,7 +23,7 @@ const traverseObject = <T extends object>(
   childKeys.forEach((childKey) => {
     const value = obj[childKey];
 
-    if (typeof value === 'object') {
+    if (value !== null && typeof value === 'object') {
       traverseObject(
         value,
         map,

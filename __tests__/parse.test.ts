@@ -286,4 +286,24 @@ describe('parse ', () => {
 
     expectMap(input, map);
   });
+
+  it('handles keys with different types of values', () => {
+    const input = `
+    {
+      "a": "a",
+      "b": 2,
+      "c": 2.3,
+      "d": true,
+      "e": false,
+      "f": null,
+      "g": {},
+      "h": []
+    }`;
+
+    const map = {
+      $: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'],
+    };
+
+    expectMap(input, map);
+  });
 });
