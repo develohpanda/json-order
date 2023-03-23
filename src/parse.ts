@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
+import {escapeKey} from './key';
 import {OrderedParseResult, PropertyMap} from './models';
 
 const traverseObject = <T extends object>(
@@ -22,11 +23,11 @@ const traverseObject = <T extends object>(
   childKeys.forEach((childKey) => {
     const value = obj[childKey];
 
-    if (typeof value === 'object') {
+    if (value !== null && typeof value === 'object') {
       traverseObject(
         value,
         map,
-        `${parentKey}${separator}${childKey}`,
+        `${parentKey}${separator}${escapeKey(childKey, separator)}`,
         separator
       );
     }
@@ -52,12 +53,14 @@ const parse = <T extends object>(
 
   if (separator.length < 1) {
     throw new Error('Separator should not be an empty string.');
+  } else if (separator === '\\') {
+    throw new Error('Separator cannot be "\\".');
   }
 
   const obj: T = JSON.parse(jsonString);
 
   const map = {};
-  traverseObject(obj, map, prefix, separator);
+  traverseObject(obj, map, escapeKey(prefix, separator), separator);
   return {
     object: obj,
     map,

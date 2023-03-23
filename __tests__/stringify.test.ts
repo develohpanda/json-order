@@ -163,4 +163,22 @@ describe('stringify ', () => {
       },
       '{"i":7,"a":{"b":[8,{"d":[{"f":{"h":"h","g":true},"e":12},10],"c":9},11]}}'
     ));
+
+  it('handles keys with different types of values', () =>
+    expectString(
+      {
+        a: 'a',
+        b: 2,
+        c: 2.3,
+        d: true,
+        e: false,
+        f: null,
+        g: {},
+        h: [],
+      },
+      {
+        $: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'],
+      },
+      '{"a":"a","b":2,"c":2.3,"d":true,"e":false,"f":null,"g":{},"h":[]}'
+    ));
 });

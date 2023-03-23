@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import clonedeep from 'lodash.clonedeep';
+import {escapeKey, splitKey} from './key';
 import {PropertyMap} from './models';
 
 interface GetResult {
@@ -15,9 +16,8 @@ const getProperty = (
 ): GetResult => {
   let exists = true;
 
-  const value = key
-    .split(separator)
-    .filter((s) => s.length > 0)
+  const value = splitKey(key, separator)
+    .slice(1)
     .reduce((o: object, x: string) => {
       exists = o && o.hasOwnProperty(x);
 
@@ -37,9 +37,8 @@ const setProperty = (
   value: object,
   separator: string
 ) => {
-  key
-    .split(separator)
-    .filter((s) => s.length > 0)
+  splitKey(key, separator)
+    .slice(1)
     .reduce((o: object, x: string, idx: number, src: Array<string>): object => {
       if (idx === src.length - 1) {
         const valueToSet = Array.isArray(value)
@@ -79,6 +78,8 @@ const order = <T extends object>(
 ): T => {
   if (separator.length < 1) {
     throw new Error('Separator should not be an empty string.');
+  } else if (separator === '\\') {
+    throw new Error('Separator cannot be "\\".');
   }
 
   if (!map) {
@@ -108,7 +109,7 @@ const order = <T extends object>(
         copyProperty(
           sourceObject,
           resultObject,
-          `${parentKey}${separator}${key}`,
+          `${parentKey}${separator}${escapeKey(key, separator)}`,
           separator
         )
       );

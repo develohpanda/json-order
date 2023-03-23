@@ -19,6 +19,12 @@ describe('parse ', () => {
     );
   });
 
+  it('throws error if separator is a slash', () => {
+    expect(() => parse('', '$', '\\')).toThrowError(
+      'Separator cannot be "\\".'
+    );
+  });
+
   it('handles top level values for of primitive types', () => {
     const input = `
     {
@@ -216,6 +222,86 @@ describe('parse ', () => {
       '$': ['d'],
       '$.d.2.1': ['c', 'b'],
       '$.d.2.1.b.1': ['a'],
+    };
+
+    expectMap(input, map);
+  });
+
+  it('handles keys with no name', () => {
+    const input = `
+    {
+      "": {
+        "c": "str",
+        "b": "str",
+        "a": "str"
+      }
+    }`;
+
+    const map = {
+      '$': [''],
+      '$.': ['c', 'b', 'a'],
+    };
+
+    expectMap(input, map);
+  });
+
+  it('escapes slashes as well as the separator when it exists in the object keys', () => {
+    // slashes in the encoded JSON are double escapes, so "\\\\" is actually equivalent to "\".
+    const input = `
+    {
+      ".": {
+        "a": {"z": "str"},
+        "b": {"y": "str"}
+      },
+      "\\\\.": {
+        "b": {"x": "str"},
+        "a": {"w": "str"}
+      },
+      "\\\\": {
+        "a": {"v": "str"}
+      },
+      ".a": {
+        "c": {"u": "str"},
+        "b": {"t": "str"},
+        "a": {"s": "str"}
+      }
+    }`;
+
+    // all below slashes are escaped so "\\" is actually equivalent to "\".
+    const map = {
+      '$': ['.', '\\.', '\\', '.a'],
+      '$.\\.': ['a', 'b'],
+      '$.\\..a': ['z'],
+      '$.\\..b': ['y'],
+      '$.\\\\\\.': ['b', 'a'],
+      '$.\\\\\\..b': ['x'],
+      '$.\\\\\\..a': ['w'],
+      '$.\\\\': ['a'],
+      '$.\\\\.a': ['v'],
+      '$.\\.a': ['c', 'b', 'a'],
+      '$.\\.a.c': ['u'],
+      '$.\\.a.b': ['t'],
+      '$.\\.a.a': ['s'],
+    };
+
+    expectMap(input, map);
+  });
+
+  it('handles keys with different types of values', () => {
+    const input = `
+    {
+      "a": "a",
+      "b": 2,
+      "c": 2.3,
+      "d": true,
+      "e": false,
+      "f": null,
+      "g": {},
+      "h": []
+    }`;
+
+    const map = {
+      $: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'],
     };
 
     expectMap(input, map);
