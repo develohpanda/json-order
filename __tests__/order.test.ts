@@ -163,4 +163,45 @@ describe('order()', () => {
       },
       {i: 7, a: {b: [8, {d: [{f: {h: 'h', g: true}, e: 12}, 10], c: 9}, 11]}}
     ));
+  
+  it('sorts keys with special characters', () => {
+    const obj = {
+      'lint-staged': {
+        '**/src/**/*.{js,jsx,ts,tsx}': 'eslint --fix'
+      },
+      dependencies: {
+        a: '1.2.3',
+        z: '1.2.3',
+        '@types/a': '1.2.3',
+        '@types/z': '1.2.3',
+        '@types/b': '1.2.3',
+      },
+    };
+    const map = {
+      '$': ['dependencies', 'lint-staged'],
+      '$.dependencies':(() => {
+        const keys = Object.keys(obj.dependencies);
+
+        // sort keys naturally
+        keys.sort();
+
+        return keys;
+      })(),
+      '$.lint-staged': Object.keys(obj['lint-staged']),
+    };
+    const expected = {
+      dependencies: {
+        '@types/a': '1.2.3',
+        '@types/b': '1.2.3',
+        '@types/z': '1.2.3',
+        a: '1.2.3',
+        z: '1.2.3',
+      },
+      'lint-staged': {
+        '**/src/**/*.{js,jsx,ts,tsx}': 'eslint --fix'
+      },
+    };
+
+    expectObject(obj, map, expected);
+  });
 });
