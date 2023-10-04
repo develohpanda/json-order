@@ -7,7 +7,7 @@ describe('order()', () => {
     obj: T,
     map: PropertyMap | null,
     res: T
-  ) => expect(order(obj, map, '.')).toEqual(res);
+  ) => expect(JSON.stringify(order(obj, map, '.'))).toEqual(JSON.stringify(res));
 
   it('returns nothing for a blank JSON string', () => expectObject({}, {}, {}));
 
